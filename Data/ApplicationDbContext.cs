@@ -33,5 +33,7 @@ namespace StackOverflow.Data
         public DbSet<StackOverflow.Models.QTiesModel> QTiesModel { get; set; }
 
         public DbSet<StackOverflow.Models.CommentsModel> CommentsModel { get; set; }
+
+        public DbSet<StackOverflow.Models.AnswersModel> AnswersModel { get; set; }
     }
 }

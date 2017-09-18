@@ -11,22 +11,22 @@ using StackOverflow.Models;
 
 namespace StackOverflow.Controllers
 {
-    public class QuestionsController : Controller
+    public class AnswersController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public QuestionsController(ApplicationDbContext context)
+        public AnswersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Questions
+        // GET: Answers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.QuestionsModel.ToListAsync());
+            return View(await _context.AnswersModel.ToListAsync());
         }
 
-        // GET: Questions/Details/5
+        // GET: Answers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,41 +34,40 @@ namespace StackOverflow.Controllers
                 return NotFound();
             }
 
-            var questionsModel = await _context.QuestionsModel
+            var answersModel = await _context.AnswersModel
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (questionsModel == null)
+            if (answersModel == null)
             {
                 return NotFound();
             }
 
-            return View(questionsModel);
+            return View(answersModel);
         }
-        [Authorize]
-
-        // GET: Questions/Create
+          [Authorize]
+        // GET: Answers/Create
         public IActionResult Create()
         {
             return View();
         }
-        [Authorize]
-        // POST: Questions/Create
+
+        // POST: Answers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,VoteCount,Title,Body,UserID,PostDate")] QuestionsModel questionsModel)
+        public async Task<IActionResult> Create([Bind("Id,VoteCount,Body,UserID,PostDate,QuestionID")] AnswersModel answersModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(questionsModel);
+                _context.Add(answersModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(questionsModel);
+            return View(answersModel);
         }
-
-        [Authorize]
-        // GET: Questions/Edit/5
+         [Authorize]
+        // GET: Answers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,23 +75,22 @@ namespace StackOverflow.Controllers
                 return NotFound();
             }
 
-            var questionsModel = await _context.QuestionsModel.SingleOrDefaultAsync(m => m.Id == id);
-            if (questionsModel == null)
+            var answersModel = await _context.AnswersModel.SingleOrDefaultAsync(m => m.Id == id);
+            if (answersModel == null)
             {
                 return NotFound();
             }
-            return View(questionsModel);
+            return View(answersModel);
         }
-          [Authorize]
-        // POST: Questions/Edit/5
+
+        // POST: Answers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,VoteCount,Title,Body,UserID,PostDate")] QuestionsModel questionsModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,VoteCount,Body,UserID,PostDate,QuestionID")] AnswersModel answersModel)
         {
-            if (id != questionsModel.Id)
+            if (id != answersModel.Id)
             {
                 return NotFound();
             }
@@ -101,12 +99,12 @@ namespace StackOverflow.Controllers
             {
                 try
                 {
-                    _context.Update(questionsModel);
+                    _context.Update(answersModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!QuestionsModelExists(questionsModel.Id))
+                    if (!AnswersModelExists(answersModel.Id))
                     {
                         return NotFound();
                     }
@@ -117,10 +115,10 @@ namespace StackOverflow.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(questionsModel);
+            return View(answersModel);
         }
-         [Authorize]
-        // GET: Questions/Delete/5
+
+        // GET: Answers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -128,31 +126,30 @@ namespace StackOverflow.Controllers
                 return NotFound();
             }
 
-            var questionsModel = await _context.QuestionsModel
+            var answersModel = await _context.AnswersModel
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (questionsModel == null)
+            if (answersModel == null)
             {
                 return NotFound();
             }
 
-            return View(questionsModel);
+            return View(answersModel);
         }
-         [Authorize]
 
-        // POST: Questions/Delete/5
+        // POST: Answers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var questionsModel = await _context.QuestionsModel.SingleOrDefaultAsync(m => m.Id == id);
-            _context.QuestionsModel.Remove(questionsModel);
+            var answersModel = await _context.AnswersModel.SingleOrDefaultAsync(m => m.Id == id);
+            _context.AnswersModel.Remove(answersModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool QuestionsModelExists(int id)
+        private bool AnswersModelExists(int id)
         {
-            return _context.QuestionsModel.Any(e => e.Id == id);
+            return _context.AnswersModel.Any(e => e.Id == id);
         }
     }
 }
