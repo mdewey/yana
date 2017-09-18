@@ -22,7 +22,7 @@ namespace StackOverflow.Controllers
         // GET: User
         public async Task<IActionResult> Index()
         {
-            return View(await _context.UserModel.ToListAsync());
+            return View(await _context.ApplicationUser.ToListAsync());
         }
 
         // GET: User/Details/5
@@ -33,14 +33,14 @@ namespace StackOverflow.Controllers
                 return NotFound();
             }
 
-            var userModel = await _context.UserModel
+            var ApplicationUser = await _context.ApplicationUser
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (userModel == null)
+            if (ApplicationUser == null)
             {
                 return NotFound();
             }
 
-            return View(userModel);
+            return View(ApplicationUser);
         }
 
         // GET: User/Create
@@ -54,15 +54,15 @@ namespace StackOverflow.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Email,Username,FirstName,LastName,IsMod")] UserModel userModel)
+        public async Task<IActionResult> Create([Bind("Id,Email,Username,FirstName,LastName,IsMod")] ApplicationUser ApplicationUser)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(userModel);
+                _context.Add(ApplicationUser);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(userModel);
+            return View(ApplicationUser);
         }
 
         // GET: User/Edit/5
@@ -73,12 +73,12 @@ namespace StackOverflow.Controllers
                 return NotFound();
             }
 
-            var userModel = await _context.UserModel.SingleOrDefaultAsync(m => m.Id == id);
-            if (userModel == null)
+            var ApplicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
+            if (ApplicationUser == null)
             {
                 return NotFound();
             }
-            return View(userModel);
+            return View(ApplicationUser);
         }
 
         // POST: User/Edit/5
@@ -86,9 +86,9 @@ namespace StackOverflow.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Username,FirstName,LastName,IsMod")] UserModel userModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Username,FirstName,LastName,IsMod")] ApplicationUser ApplicationUser)
         {
-            if (id != userModel.Id)
+            if (id != ApplicationUser.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace StackOverflow.Controllers
             {
                 try
                 {
-                    _context.Update(userModel);
+                    _context.Update(ApplicationUser);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserModelExists(userModel.Id))
+                    if (!ApplicationUserExists(ApplicationUser.Id))
                     {
                         return NotFound();
                     }
@@ -113,7 +113,7 @@ namespace StackOverflow.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(userModel);
+            return View(ApplicationUser);
         }
 
         // GET: User/Delete/5
@@ -124,14 +124,14 @@ namespace StackOverflow.Controllers
                 return NotFound();
             }
 
-            var userModel = await _context.UserModel
+            var ApplicationUser = await _context.ApplicationUser
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (userModel == null)
+            if (ApplicationUser == null)
             {
                 return NotFound();
             }
 
-            return View(userModel);
+            return View(ApplicationUser);
         }
 
         // POST: User/Delete/5
@@ -139,15 +139,15 @@ namespace StackOverflow.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var userModel = await _context.UserModel.SingleOrDefaultAsync(m => m.Id == id);
-            _context.UserModel.Remove(userModel);
+            var ApplicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
+            _context.ApplicationUser.Remove(ApplicationUser);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserModelExists(int id)
+        private bool ApplicationUserExists(int id)
         {
-            return _context.UserModel.Any(e => e.Id == id);
+            return _context.ApplicationUser.Any(e => e.Id == id);
         }
     }
 }

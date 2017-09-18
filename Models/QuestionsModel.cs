@@ -10,7 +10,7 @@ namespace StackOverflow.Models
 		public int UserID { get; set; }  //or int?
 		public DateTime PostDate { get; set; } = DateTime.Now; 
 
-        public UserModel UserModel { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
         public QuestionsModel()
         {

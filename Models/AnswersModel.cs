@@ -12,7 +12,7 @@ namespace StackOverflow.Models
         public DateTime PostDate { get; set; }
         public int QuestionID { get; set; }
 
-        public UserModel UserModel { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
         public QuestionsModel QuestionModel { get; set; }
 
         public AnswersModel()

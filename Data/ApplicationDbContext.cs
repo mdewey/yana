@@ -24,7 +24,7 @@ namespace StackOverflow.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<StackOverflow.UserModel> UserModel { get; set; }
+        public DbSet<StackOverflow.ApplicationUser> ApplicationUser { get; set; }
 
         public DbSet<StackOverflow.Models.TagsModel> TagsModel { get; set; }
 
