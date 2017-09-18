@@ -11,9 +11,10 @@ using System;
 namespace StackOverflow.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170918192001_CommentsModel_mig")]
+    partial class CommentsModel_mig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,34 +128,6 @@ namespace StackOverflow.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("StackOverflow.Models.AnswerModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Body");
-
-                    b.Property<DateTime>("PostDate");
-
-                    b.Property<int>("QuestionID");
-
-                    b.Property<int?>("QuestionModelId");
-
-                    b.Property<int>("UserID");
-
-                    b.Property<int?>("UserModelId");
-
-                    b.Property<int>("VoteCount");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionModelId");
-
-                    b.HasIndex("UserModelId");
-
-                    b.ToTable("AnswerModel");
-                });
-
             modelBuilder.Entity("StackOverflow.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -203,38 +176,6 @@ namespace StackOverflow.Data.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("StackOverflow.Models.CommentsModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AnswerID");
-
-                    b.Property<int?>("AnswerModelId");
-
-                    b.Property<string>("Body");
-
-                    b.Property<DateTime>("PostDate");
-
-                    b.Property<int>("QuestionID");
-
-                    b.Property<int?>("QuestionModelId");
-
-                    b.Property<int>("UserID");
-
-                    b.Property<int?>("UserModelId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnswerModelId");
-
-                    b.HasIndex("QuestionModelId");
-
-                    b.HasIndex("UserModelId");
-
-                    b.ToTable("CommentsModel");
                 });
 
             modelBuilder.Entity("StackOverflow.Models.QTiesModel", b =>
@@ -358,32 +299,6 @@ namespace StackOverflow.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("StackOverflow.Models.AnswerModel", b =>
-                {
-                    b.HasOne("StackOverflow.Models.QuestionsModel", "QuestionModel")
-                        .WithMany()
-                        .HasForeignKey("QuestionModelId");
-
-                    b.HasOne("StackOverflow.UserModel", "UserModel")
-                        .WithMany()
-                        .HasForeignKey("UserModelId");
-                });
-
-            modelBuilder.Entity("StackOverflow.Models.CommentsModel", b =>
-                {
-                    b.HasOne("StackOverflow.Models.AnswerModel", "AnswerModel")
-                        .WithMany()
-                        .HasForeignKey("AnswerModelId");
-
-                    b.HasOne("StackOverflow.Models.QuestionsModel", "QuestionModel")
-                        .WithMany()
-                        .HasForeignKey("QuestionModelId");
-
-                    b.HasOne("StackOverflow.UserModel", "UserModel")
-                        .WithMany()
-                        .HasForeignKey("UserModelId");
                 });
 
             modelBuilder.Entity("StackOverflow.Models.QTiesModel", b =>
