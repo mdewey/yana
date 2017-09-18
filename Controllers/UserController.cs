@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StackOverflow;
 using StackOverflow.Data;
+using StackOverflow.Models;
 
 namespace StackOverflow.Controllers
 {
