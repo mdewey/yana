@@ -7,7 +7,7 @@ namespace StackOverflow.Models
 		public int VoteCount { get; set; }
 		public string Title { get; set; } //capital or lower?
         public string Body { get; set; }  //capital or lower? 
-		public string UserID { get; set; }  //or int?
+		public int UserID { get; set; }  //or int?
 		public DateTime PostDate { get; set; } = DateTime.Now; 
 
         public UserModel UserModel { get; set; }

@@ -8,7 +8,7 @@ namespace StackOverflow.Models
         public int Id { get; set; }
         public int VoteCount { get; set; }
         public String Body { get; set; }
-        public string UserID { get; set; }
+        public int UserID { get; set; }
         public DateTime PostDate { get; set; }
         public int QuestionID { get; set; }
 

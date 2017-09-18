@@ -1,5 +1,10 @@
-﻿@{
+﻿@model List<QuestionsModel> 
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <h1>Welcome to StackOverflow</h1>
+<h4>Questions:</h4>
+@foreach(var item in Model)
+
+
